@@ -7,6 +7,7 @@
 
 import SwiftUI
 extension View {
+    
     var loadingView: some View {
         VStack {
             Text("Loading...")
@@ -17,6 +18,7 @@ extension View {
         }
     }
     
+    // show error
     func errorAlert(error: Binding<Error?>, buttonTitle: String = "OK") -> some View {
         let localizedAlertError = LocalizedAlertError(error: error.wrappedValue)
         return alert(isPresented: .constant(localizedAlertError != nil), error: localizedAlertError) { _ in

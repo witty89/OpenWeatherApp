@@ -23,11 +23,12 @@ struct DetailView: View {
         }
         .padding()
         
+        // show error
         .alert(isPresented: $viewModel.isShowingError) {
             Alert(title: Text("Error"), message: Text(viewModel.error ?? "Unknown error"), dismissButton: .default(Text("OK")) {
                 viewModel.isShowingError = false
                 
-                // dismiss detail view and return to home screen
+                // dismiss detail view and return to search view
                 self.presentationMode.wrappedValue.dismiss()
             })
         }
@@ -43,7 +44,7 @@ struct DetailView: View {
         VStack {
             if let current = viewModel.weatherData?.current {
                 // city name as title
-                Text(viewModel.city)
+                Text(viewModel.location.city)
                     .font(.title)
                 
                 // show the icon, if we have one
@@ -67,6 +68,7 @@ struct DetailView: View {
         }
     }
     
+    // get the image, show placeholder image until icon returns to avoid awkard resizing
     @ViewBuilder
     var iconImage: some View {
         AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(viewModel.weatherData?.current.weather.first?.icon ?? "")@4x.png")) { phase in
@@ -86,14 +88,14 @@ struct DetailView: View {
                     .frame(width: 200, height: 200)
                     .clipped()
             case .failure:
-                // Placeholder image or error message
+                // Placeholder image
                 Image(systemName: "sun.dust.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 200, height: 200)
                     .clipped()
             @unknown default:
-                // Placeholder image or error message
+                // Placeholder image
                 Image(systemName: "sun.dust.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -103,6 +105,7 @@ struct DetailView: View {
         }
     }
     
+    // allow user to switch between Celcius and Fahrenheit
     var temperatureUnitSwitch: some View {
         HStack {
             Text("°C")
@@ -113,6 +116,7 @@ struct DetailView: View {
         }
     }
     
+    // shows the title and value pairs for each attribute
     func attributeView(title: String, value: String, showDivider: Bool = true) -> some View {
         VStack {
             HStack {
@@ -129,7 +133,7 @@ struct DetailView: View {
     }
     
     func weatherAttributeList(current: Current) -> some View {
-        
+        // scrollview, just in case user has a small device, or to allow future additions to the attributes
         ScrollView {
             ForEach(viewModel.weatherAttributes) {
                 attributeView(title: $0.title, value: $0.value)
