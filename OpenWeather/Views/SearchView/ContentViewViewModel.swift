@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class ContentViewViewModel: ObservableObject {
     @Published var didTapSearch = false

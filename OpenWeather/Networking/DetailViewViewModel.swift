@@ -15,7 +15,7 @@ class DetailViewViewModel: ObservableObject {
     @Published var isShowingError = false
     @Published var isFahrenheit = true
     
-    var city: String
+    var location: SimpleLocation
     var weatherAttributes: [WeatherAttribute] = []
     var temperatureUnit: String {
         return isFahrenheit ? "°F" : "°C"
@@ -24,8 +24,8 @@ class DetailViewViewModel: ObservableObject {
     var weatherData: WeatherData? // TODO: - privatize
     private var cancellables = Set<AnyCancellable>()
     
-    init(city: String) {
-        self.city = city
+    init(location: SimpleLocation) {
+        self.location = location
         $isFahrenheit.sink { value in
             self.createWeatherAttributes(isFahrenheit: value)
         }.store(in: &cancellables)
@@ -33,7 +33,7 @@ class DetailViewViewModel: ObservableObject {
     }
     
     func getData() {
-        Networking.shared.fetchLatLon(city: city)
+        Networking.shared.fetchLatLon(city: location.city, state: location.state ?? "", country: location.country)
             .flatMap { (lat, lon) in
                 Networking.shared.fetchWeather(lat: lat, lon: lon, exclude: "")
             }
