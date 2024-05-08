@@ -70,6 +70,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C8895DA02BEB5E7100C2385A /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				C87EC6862BE9969500C09D47 /* DetailView.swift */,
+				C87EC68E2BE9DF3000C09D47 /* DetailViewViewModel.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
 		C8FD27AF2BE9758700EE0791 = {
 			isa = PBXGroup;
 			children = (
@@ -111,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				C87EC6882BE996C700C09D47 /* SearchView */,
-				C87EC6862BE9969500C09D47 /* DetailView.swift */,
+				C8895DA02BEB5E7100C2385A /* DetailView */,
 				C87EC6902BEA0EFA00C09D47 /* extension_View.swift */,
 			);
 			path = Views;
@@ -121,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				C8FD27CB2BE97D1D00EE0791 /* Networking.swift */,
-				C87EC68E2BE9DF3000C09D47 /* DetailViewViewModel.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";

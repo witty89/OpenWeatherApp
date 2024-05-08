@@ -38,7 +38,7 @@ class SearchViewViewModel: ObservableObject {
         // create each location item, use the set to eliminate duplicates
         var searchResults: Set<SimpleLocation> = []
         
-        let filtered = results.filter { !$0.subtitle.contains("Search Nearby") }
+        let filtered = results.filter { !$0.subtitle.contains("Search Nearby") && !$0.subtitle.contains("No Results Nearby") }
         for result in filtered {
             
             let titleComponents = result.title.components(separatedBy: ", ")

@@ -16,12 +16,11 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Enter City Name...", text: $searchText)
-                    .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .onChange(of: searchText) { newValue in
-                        viewModel.performSearch(query: newValue)
-                    }
+                Text("Search")
+                    .font(.title)
+                
+                searchBar
+                    .padding(.bottom, 12)
                 
                 List {
                     ForEach(viewModel.getCityList(results: completerDelegate.searchResults)) { location in
@@ -37,4 +36,26 @@ struct SearchView: View {
         }
     }
 
+    var searchBar: some View {
+        HStack {
+            TextField("Enter City Here...", text: $searchText)
+                .padding(.leading, 12)
+                .padding(.vertical, 12)
+            
+            Button(action: {
+                searchText = ""
+            }, label: {
+                Image(systemName: "xmark.circle.fill")
+                    .padding(.trailing, 12)
+                    .opacity(searchText == "" ? 0 : 1)
+            })
+        }
+        .padding(.horizontal)
+        .background(Color(.systemGray5))
+        .cornerRadius(10)
+        .padding(.horizontal)
+        .onChange(of: searchText) { newValue in
+            viewModel.performSearch(query: newValue)
+        }
+    }
 }

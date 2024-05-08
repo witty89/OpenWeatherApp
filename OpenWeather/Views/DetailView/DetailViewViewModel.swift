@@ -45,6 +45,7 @@ class DetailViewViewModel: ObservableObject {
                     // Handle error if needed
                     print("Error: \(error.localizedDescription)")
                     self.isLoading = false
+                    self.error = error.localizedDescription
                 }
             }, receiveValue: { weatherData in
                 self.weatherData = weatherData
