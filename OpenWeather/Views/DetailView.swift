@@ -38,6 +38,16 @@ struct DetailView: View {
                 viewModel.isShowingError = true
             }
         }
+        // accessing the toolbar to add the refresh button
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    viewModel.getData()
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }
+            }
+        }
     }
     
     var contentView: some View {
