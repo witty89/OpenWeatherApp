@@ -63,16 +63,9 @@ struct Rain: Codable {
 // MARK: - Weather
 struct Weather: Codable {
     let id: Int
-    let main: Main
+    let main: String
     let description: String
     let icon: String
-}
-
-enum Main: String, Codable {
-    case clear = "Clear"
-    case clouds = "Clouds"
-    case rain = "Rain"
-    case snow = "Snow"
 }
 
 // MARK: - Daily
